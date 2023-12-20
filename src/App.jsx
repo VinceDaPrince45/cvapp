@@ -14,19 +14,34 @@ export default function App() {
   return (
     <div>
       <div className="userinput">
-        <div className="genInfo">
-          <ExpForm label="Name:" val={name} setVal={setName}/>
-          <ExpForm label="Email:" val={email} setVal={setEmail}/>
-          <ExpForm label="Phone Number:" val={phoneNum} setVal={setPhoneNum}/>
-        </div>
-        <div className="education">
-          <ExpForm label="School Name:" val={school} setVal={setSchool}/>
-          <ExpForm label="Field Of Study:" val={major} setVal={setMajor}/>
-          <ExpForm label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
-        </div>
+        <InfoForm 
+          formName="genInfo"
+          val1name="Name:"
+          val2name="Email:"
+          val3name="Phone Number:"
+          val1={name}
+          val2={email}
+          val3={phoneNum}
+          setVal1={setName}
+          setVal2={setEmail}
+          setVal3={setPhoneNum}
+        />
+        <InfoForm 
+          formName="education"
+          val1name="School Name:"
+          val2name="Field Of Study:"
+          val3name="Date of Study:"
+          val1={school}
+          val2={major}
+          val3={educationDate}
+          setVal1={setSchool}
+          setVal2={setMajor}
+          setVal3={setEducationDate}
+        />
         <div className="experience">
           {/* need to add a button that checks if active and creates experience form if not */}
-
+          <ExpForm />
+          <button onClick={()=>setToggle(!toggle)}></button>
         </div>
       </div>
       <div className="result">

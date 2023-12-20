@@ -1,24 +1,27 @@
 function Name({val}) {
-
+    return (
+        <div>{val}</div>
+    );
 }
 
 function Email({val}) {
-
+    return (
+        <div>{val}</div>
+    );
 }
 
 function PhoneNum({val}) {
-
+    return (
+        <div>{val}</div>
+    );
 }
 
 export default function GenInfo({nameVal,emailVal,phoneVal}) {
     return (
         <div>
             <Name val={nameVal} />
-            <div>{nameVal}</div>
             <Email val={emailVal} />
-            <div>{emailVal}</div>
             <PhoneNum val={phoneVal} />
-            <div>{phoneVal}</div>
         </div>
     );
 }

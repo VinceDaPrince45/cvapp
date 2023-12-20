@@ -1,4 +1,4 @@
-export default function Form({label,val,setVal}) {
+function Form({label,val,setVal}) {
     return (
       <label>
       {label}{" "}
@@ -10,3 +10,5 @@ export default function Form({label,val,setVal}) {
       </label>
     );
 }
+
+export Form as infoForm;

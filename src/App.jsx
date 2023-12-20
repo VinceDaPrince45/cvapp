@@ -1,21 +1,32 @@
 import { useState } from "react";
 import GenInfo from "./GenInfo";
-import Form from "./Form";
+import {ExpForm,InfoForm} from "./Form";
 
 export default function App() {
   const [name,setName] = useState('');
   const [email,setEmail] = useState('');
   const [phoneNum,setPhoneNum] = useState('');
+  const [school,setSchool] = useState('');
+  const [major,setMajor] = useState('');
+  const [educationDate,setEducationDate] = useState('');
+  const [toggle,setToggle] = useState(false);
 
   return (
     <div>
       <div className="userinput">
         <div className="genInfo">
-          <Form label="Name:" val={name} setVal={setName}/>
-          <Form label="Email:" val={email} setVal={setEmail}/>
-          <Form label="Phone Number:" val={phoneNum} setVal={setPhoneNum}/>
+          <ExpForm label="Name:" val={name} setVal={setName}/>
+          <ExpForm label="Email:" val={email} setVal={setEmail}/>
+          <ExpForm label="Phone Number:" val={phoneNum} setVal={setPhoneNum}/>
         </div>
         <div className="education">
+          <ExpForm label="School Name:" val={school} setVal={setSchool}/>
+          <ExpForm label="Field Of Study:" val={major} setVal={setMajor}/>
+          <ExpForm label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
+        </div>
+        <div className="experience">
+          {/* need to add a button that checks if active and creates experience form if not */}
+
         </div>
       </div>
       <div className="result">
@@ -24,3 +35,4 @@ export default function App() {
     </div>
   );
 }
+

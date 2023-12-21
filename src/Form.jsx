@@ -34,7 +34,7 @@ function GenInfoForm({
     );
 }
 
-function EducationForm({array}) {
+function EducationForm({array,setArray}) {
     const [school,setSchool] = useState('');
     const [major,setMajor] = useState('');
     const [educationDate,setEducationDate] = useState('');
@@ -43,14 +43,15 @@ function EducationForm({array}) {
     const saveFunc = () => {
         // create new object
         const education = {schoolName:school,major:major,date:educationDate};
-        if (array.length == 0) {
-            array.push(education);
+        const newArray = array;
+        if (newArray.length == 0) {
+            newArray.push(education);
         } else {
             let found = false;
-            for (let i=0;i<array.length;i++) {
-                if (education.schoolName === array[i].schoolName) { // update that object in array
+            for (let i=0;i<newArray.length;i++) {
+                if (education.schoolName === newArray[i].schoolName) { // update that object in array
                     found = true;
-                    array[i] = education;
+                    newArray[i] = education;
                     break;
                 }
                 if (!found) {
@@ -58,6 +59,11 @@ function EducationForm({array}) {
                 }
             }
         }
+        setArray(newArray);
+        setSchool('');
+        setMajor('');
+        setEducationDate('');
+        setShow(!show);
     }
 
 

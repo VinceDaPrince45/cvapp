@@ -7,9 +7,8 @@ export default function App() {
   const [email,setEmail] = useState('');
   const [phoneNum,setPhoneNum] = useState('');
   const [toggle,setToggle] = useState(false);
-
-  const experienceList = [];
-  const educationList = [];
+  const [experienceList,reloadExperience] = useState([]);
+  const [educationList,reloadEducation] = useState([]);
 
   return (
     <div>
@@ -17,7 +16,7 @@ export default function App() {
         <GenInfoForm 
           formName="genInfo" val1name="Name:" val2name="Email:" val3name="Phone Number:" val1={name} val2={email} val3={phoneNum} setVal1={setName} setVal2={setEmail} setVal3={setPhoneNum}
         />
-        <EducationForm array={educationList}/>
+        <EducationForm array={educationList} setArray={reloadEducation}/>
         <div className="experience">
           {/* 
           need to add a button that checks if active and creates experience form if not

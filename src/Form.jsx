@@ -34,6 +34,29 @@ function GenInfoForm({
     );
 }
 
+function EducationDisplay({element}) {
+    const [show,setShow] = useState(false);
+    return (
+        show 
+        ?
+        <>
+            <div key={element.schoolName}>
+                {element.schoolName}{" "}
+                {element.major}{" "}
+                {element.date}
+            </div>
+            <button onClick={()=>setShow(!show)}>Show</button>
+        </>
+        :
+        <>
+            <div key={element.schoolName}>
+                {element.schoolName}
+            </div>
+            <button onClick={()=>setShow(!show)}>Show</button>
+        </>
+    );
+}
+
 function EducationForm({array,setArray}) {
     const [school,setSchool] = useState('');
     const [major,setMajor] = useState('');
@@ -42,6 +65,7 @@ function EducationForm({array,setArray}) {
 
     const saveFunc = () => {
         // create new object
+        
         const education = {schoolName:school,major:major,date:educationDate};
         const newArray = array;
         if (newArray.length == 0) {
@@ -54,9 +78,9 @@ function EducationForm({array,setArray}) {
                     newArray[i] = education;
                     break;
                 }
-                if (!found) {
-                    array.push(education);
-                }
+            }
+            if (!found) {
+                array.push(education);
             }
         }
         setArray(newArray);
@@ -70,44 +94,24 @@ function EducationForm({array,setArray}) {
         show 
         ?
         <div className="genInfo">
+            {array.map((education)=> {
+                return <EducationDisplay key={education.schoolName} element={education}/>
+            })}
             <Field label="School Name:" val={school} setVal={setSchool}/>
             <Field label="Field of Study:" val={major} setVal={setMajor}/>
             <Field label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
             <button onClick={saveFunc}>Save</button>
-            <button onClick={()=>setShow(!show)}>Show</button>
+            <button onClick={()=>setShow(!show)}>Add Education</button>
         </div>
-        : <button onClick={()=>setShow(!show)}>Show</button>
+        : 
+        <div className="genInfo">
+            {array.map((education)=> {
+                return <EducationDisplay key={education.schoolName} element={education}/>
+            })}
+            <button onClick={()=>setShow(!show)}>Add Education</button>
+        </div>
     );
     // when pressing save, checks if array is empty first, then compares school names to see if it already exists
-}
-
-function EducationList({array}) {
-    const [show,setShow] = useState(false);
-    return (
-        <>
-            {array.map((education) => {
-                return (
-                    show 
-                    ?
-                    <>
-                        <div key={education.schoolName}>
-                            {education.schoolName}
-                            {education.major}
-                            {education.date}
-                        </div>
-                        <button onClick={()=>setShow(!show)}>Show</button>
-                    </>
-                    :
-                    <>
-                        <div key={education.schoolName}>
-                            {education.schoolName}
-                        </div>
-                        <button onClick={()=>setShow(!show)}>Show</button>
-                    </>
-                );
-            })}
-        </>
-    );
 }
 
 function ExperienceForm({array}) {
@@ -133,4 +137,4 @@ function ExperienceForm({array}) {
         null;
 }
 
-export {GenInfoForm as GenInfoForm, ExperienceForm as ExpForm, EducationForm as EducationForm, EducationList as EducationList};
+export {GenInfoForm as GenInfoForm, ExperienceForm as ExpForm, EducationForm as EducationForm};

@@ -66,7 +66,6 @@ function EducationForm({array,setArray}) {
         setShow(!show);
     }
 
-
     return (
         show 
         ?
@@ -82,27 +81,56 @@ function EducationForm({array,setArray}) {
     // when pressing save, checks if array is empty first, then compares school names to see if it already exists
 }
 
-function ExperienceForm({array}) {
-        const [companyName,setCompanyName] = useState('');
-        const [position,setPosition] = useState('');
-        const [responsibilities,setResponsibilities] = useState('');
-        const [startDate,setStartDate] = useState('');
-        const [endDate,setEndDate] = useState('');
-        const [show,setShow] = useState(true);
-
-        return show
-            ?
-            <div className="genInfo">
-                <Field label="Company Name:" val={companyName} setVal={setCompanyName}/>
-                <Field label="Position Title:" val={position} setVal={setPosition}/>
-                <Field label="Responsibilities:" val={responsibilities} setVal={setResponsibilities}/>
-                <Field label="Date Started" val={startDate} setVal={setStartDate}/>
-                <Field label="Date Ended" val={endDate} setVal={setEndDate}/>
-                <button onClick={()=>setShow(!show)}>Show</button>
-                <button>Save</button>
-            </div>
-            :
-            null;
+function EducationList({array}) {
+    const [show,setShow] = useState(false);
+    return (
+        <>
+            {array.map((education) => {
+                return (
+                    show 
+                    ?
+                    <>
+                        <div key={education.schoolName}>
+                            {education.schoolName}
+                            {education.major}
+                            {education.date}
+                        </div>
+                        <button onClick={()=>setShow(!show)}>Show</button>
+                    </>
+                    :
+                    <>
+                        <div key={education.schoolName}>
+                            {education.schoolName}
+                        </div>
+                        <button onClick={()=>setShow(!show)}>Show</button>
+                    </>
+                );
+            })}
+        </>
+    );
 }
 
-export {GenInfoForm as GenInfoForm, ExperienceForm as ExpForm, EducationForm as EducationForm};
+function ExperienceForm({array}) {
+    const [companyName,setCompanyName] = useState('');
+    const [position,setPosition] = useState('');
+    const [responsibilities,setResponsibilities] = useState('');
+    const [startDate,setStartDate] = useState('');
+    const [endDate,setEndDate] = useState('');
+    const [show,setShow] = useState(true);
+
+    return show
+        ?
+        <div className="genInfo">
+            <Field label="Company Name:" val={companyName} setVal={setCompanyName}/>
+            <Field label="Position Title:" val={position} setVal={setPosition}/>
+            <Field label="Responsibilities:" val={responsibilities} setVal={setResponsibilities}/>
+            <Field label="Date Started" val={startDate} setVal={setStartDate}/>
+            <Field label="Date Ended" val={endDate} setVal={setEndDate}/>
+            <button onClick={()=>setShow(!show)}>Show</button>
+            <button>Save</button>
+        </div>
+        :
+        null;
+}
+
+export {GenInfoForm as GenInfoForm, ExperienceForm as ExpForm, EducationForm as EducationForm, EducationList as EducationList};

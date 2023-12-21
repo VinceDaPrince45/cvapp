@@ -1,6 +1,6 @@
 import { useState } from "react";
 import GenInfo from "./GenInfo";
-import {GenInfoForm,ExpForm,EducationForm} from "./Form";
+import {GenInfoForm,ExpForm,EducationForm,EducationList} from "./Form";
 
 export default function App() {
   const [name,setName] = useState('');
@@ -16,7 +16,9 @@ export default function App() {
         <GenInfoForm 
           formName="genInfo" val1name="Name:" val2name="Email:" val3name="Phone Number:" val1={name} val2={email} val3={phoneNum} setVal1={setName} setVal2={setEmail} setVal3={setPhoneNum}
         />
+        <EducationList array={educationList}/>        
         <EducationForm array={educationList} setArray={reloadEducation}/>
+        <button onClick={()=>console.log(educationList)}>Test</button>
         <div className="experience">
           {/* 
           need to add a button that checks if active and creates experience form if not

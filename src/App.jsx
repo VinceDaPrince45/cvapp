@@ -10,6 +10,16 @@ export default function App() {
   const [major,setMajor] = useState('');
   const [educationDate,setEducationDate] = useState('');
   const [toggle,setToggle] = useState(false);
+  const [companyName,setCompanyName] = useState('');
+  const [position,setPosition] = useState('');
+  const [responsibilities,setResponsibilities] = useState('');
+  const [startDate,setStartDate] = useState('');
+  const [endDate,setEndDate] = useState('');
+
+  const toggleButton = () => {
+    console.log(toggle);
+    setToggle(!toggle);
+  }
 
   return (
     <div>
@@ -40,8 +50,26 @@ export default function App() {
         />
         <div className="experience">
           {/* need to add a button that checks if active and creates experience form if not */}
-          <ExpForm />
-          <button onClick={()=>setToggle(!toggle)}></button>
+          <ExpForm 
+            formName="experienceForm"
+            val1name="Company Name:"
+            val2name="Position Title:"
+            val3name="Responsibilities:"
+            val4name="Date Started:"
+            val5name="Date Ended:"
+            val1={companyName}
+            val2={position}
+            val3={responsibilities}
+            val4={startDate}
+            val5={endDate}
+            setVal1={setCompanyName}
+            setVal2={setPosition}
+            setVal3={setResponsibilities}
+            setVal4={setStartDate}
+            setVal5={setEndDate}
+            toggled={toggle}
+          />
+          <button onClick={toggleButton}>Add Experience</button>
         </div>
       </div>
       <div className="result">

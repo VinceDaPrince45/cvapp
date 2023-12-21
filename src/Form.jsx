@@ -38,14 +38,42 @@ function EducationForm({array}) {
     const [school,setSchool] = useState('');
     const [major,setMajor] = useState('');
     const [educationDate,setEducationDate] = useState('');
+    const [show,setShow] = useState(true);
+
+    const saveFunc = () => {
+        // create new object
+        const education = {schoolName:school,major:major,date:educationDate};
+        if (array.length == 0) {
+            array.push(education);
+        } else {
+            let found = false;
+            for (let i=0;i<array.length;i++) {
+                if (education.schoolName === array[i].schoolName) { // update that object in array
+                    found = true;
+                    array[i] = education;
+                    break;
+                }
+                if (!found) {
+                    array.push(education);
+                }
+            }
+        }
+    }
+
 
     return (
+        show 
+        ?
         <div className="genInfo">
             <Field label="School Name:" val={school} setVal={setSchool}/>
             <Field label="Field of Study:" val={major} setVal={setMajor}/>
             <Field label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
+            <button onClick={saveFunc}>Save</button>
+            <button onClick={()=>setShow(!show)}>Show</button>
         </div>
+        : <button onClick={()=>setShow(!show)}>Show</button>
     );
+    // when pressing save, checks if array is empty first, then compares school names to see if it already exists
 }
 
 function ExperienceForm({array}) {
@@ -58,7 +86,7 @@ function ExperienceForm({array}) {
 
         return show
             ?
-            <div className="expForm">
+            <div className="genInfo">
                 <Field label="Company Name:" val={companyName} setVal={setCompanyName}/>
                 <Field label="Position Title:" val={position} setVal={setPosition}/>
                 <Field label="Responsibilities:" val={responsibilities} setVal={setResponsibilities}/>

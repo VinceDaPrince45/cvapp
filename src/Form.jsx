@@ -34,38 +34,59 @@ function GenInfoForm({
     );
 }
 
-function EducationDisplay({element}) {
-    const [show,setShow] = useState(false);
-    return (
-        show 
-        ?
-        <>
-            <div key={element.schoolName}>
-                {element.schoolName}{" "}
-                {element.major}{" "}
-                {element.date}
-            </div>
-            <button onClick={()=>setShow(!show)}>Show</button>
-        </>
-        :
-        <>
-            <div key={element.schoolName}>
-                {element.schoolName}
-            </div>
-            <button onClick={()=>setShow(!show)}>Show</button>
-        </>
-    );
+function EducationEdit() {
 }
 
-function EducationForm({array,setArray}) {
-    const [school,setSchool] = useState('');
-    const [major,setMajor] = useState('');
-    const [educationDate,setEducationDate] = useState('');
+function EducationDisplay({array,setArray,element}) {
+    const [show,setShow] = useState(false);
+    const [edit,setEdit] = useState(false);
+
+    const editFunc = (element) => {
+        console.log("runs");
+        return (
+            <EducationForm array={array} setArray={setArray} schoolDefault={element.schoolName} majorDefault={element.major} educationDefault={element.date}/>
+        );
+    }
+
+    if (show && edit) {
+        console.log('show and edit')
+        return (
+            editFunc(element)
+        );
+    } else if (show && !edit) {
+        console.log('show')
+        return (
+            <>
+                <div key={element.schoolName}>
+                    {element.schoolName}{" "}
+                    {element.major}{" "}
+                    {element.date}
+                </div>
+                <button onClick={()=>setEdit(!edit)}>Edit</button>
+                <button onClick={()=>setShow(!show)}>Show</button>
+            </>
+        );
+    } else {
+        console.log('none')
+        return (
+            <>
+                <div key={element.schoolName}>
+                    {element.schoolName}
+                </div>
+                <button onClick={()=>setShow(!show)}>Show</button>
+            </>
+        );
+    }
+}
+
+function EducationForm({array,setArray,schoolDefault='',majorDefault='',educationDefault=''}) {
+    const [school,setSchool] = useState(schoolDefault);
+    const [major,setMajor] = useState(majorDefault);
+    const [educationDate,setEducationDate] = useState(educationDefault);
     const [show,setShow] = useState(true);
 
     const saveFunc = () => {
         // create new object
-        
         const education = {schoolName:school,major:major,date:educationDate};
         const newArray = array;
         if (newArray.length == 0) {

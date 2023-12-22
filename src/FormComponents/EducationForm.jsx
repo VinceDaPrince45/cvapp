@@ -10,18 +10,25 @@ function EducationItem({array,setArray,element}) {
     const [edit,setEdit] = useState(false);
 
     const editFunc = () => {
-        console.log("running");
-        for (let i=0;i<array.length;i++) {
-            if (element.id == array[i].id) {
-                array[i] = {id:element.id,schoolName:school,major:major,date:educationDate};
+        const newArray = array;
+        for (let i=0;i<newArray.length;i++) {
+            if (element.id == newArray[i].id) {
+                newArray[i] = {id:element.id,schoolName:school,major:major,date:educationDate};
                 element.schoolName = school;
                 element.major = major;
                 element.date = educationDate;
             }
         }
+        setArray(newArray)
         setShow(!show);
         setEdit(!edit);
     }
+
+    const exit = () => {
+        setShow(!show);
+        setEdit(!edit);
+    }
+
     if (show && edit) {
         return (
             <div className="editEducation">
@@ -29,30 +36,25 @@ function EducationItem({array,setArray,element}) {
                 <Field label="Field of Study:" val={major} setVal={setMajor}/>
                 <Field label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
                 <button className="educationbutton" onClick={editFunc}>Save</button>
-                <button className="educationbutton" onClick={()=>setShow(!show)}>Show</button>
+                <button className="educationbutton" onClick={exit}>Hide</button>
             </div>
         );
     } else if (show && !edit) {
-
         return (
-            <>
-                <div className="editEducation">
-                    {element.schoolName}{" "}
-                    {element.major}{" "}
-                    {element.date}
-                </div>
+            <div className="editEducation">
+                {element.schoolName}{" "}
+                {element.major}{" "}
+                {element.date}
                 <button className="educationbutton" onClick={()=>setEdit(!edit)}>Edit</button>
-                <button className="educationbutton" onClick={()=>setShow(!show)}>Show</button>
-            </>
+                <button className="educationbutton" onClick={()=>setShow(!show)}>Hide</button>
+            </div>
         );
     } else {
         return (
-            <>
-                <div className="editEducation">
-                    {element.schoolName}
-                </div>
+            <div className="editEducation">
+                {element.schoolName}
                 <button className="educationbutton" onClick={()=>setShow(!show)}>Show</button>
-            </>
+            </div>        
         );
     }
 }
@@ -92,7 +94,7 @@ function EducationForm({array,setArray,schoolDefault='',majorDefault='',educatio
         </div>
         :
         <div className="newEducation">
-            <EnteredEducations array={array}/>
+            <EnteredEducations array={array} updateArray={setArray}/>
             <button onClick={()=>setShow(!show)}>Add Education</button>
         </div>
     );

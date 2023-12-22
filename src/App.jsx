@@ -9,7 +9,6 @@ export default function App() {
   const [name,setName] = useState('');
   const [email,setEmail] = useState('');
   const [phoneNum,setPhoneNum] = useState('');
-  const [toggle,setToggle] = useState(false);
   const [experienceList,reloadExperience] = useState([]);
   const [educationList,reloadEducation] = useState([]);
 
@@ -20,7 +19,7 @@ export default function App() {
         <EducationForm array={educationList} setArray={reloadEducation}/>
         <button onClick={()=>console.log(educationList)}>Test</button>
         <ExpForm array={experienceList} setArray={reloadExperience}/>
-        <button onClick={()=>setToggle(!toggle)}>Add Experience</button>
+        <button onClick={()=>console.log(experienceList)}>Test</button>
       </div>
       <div className="result">
         <GenInfo nameVal={name} emailVal={email} phoneVal={phoneNum} />

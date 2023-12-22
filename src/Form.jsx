@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 function Field({label,val,setVal}) {
     return (
@@ -34,30 +35,25 @@ function GenInfoForm({
     );
 }
 
-function EducationEdit() {
-}
-
 function EducationDisplay({array,setArray,element}) {
     const [show,setShow] = useState(false);
     const [edit,setEdit] = useState(false);
 
     const editFunc = (element) => {
-        console.log("runs");
+        console.log(element);
         return (
-            <EducationForm array={array} setArray={setArray} schoolDefault={element.schoolName} majorDefault={element.major} educationDefault={element.date}/>
+            <EducationForm array={array} setArray={setArray} idDefault={element.id} schoolDefault={element.schoolName} majorDefault={element.major} educationDefault={element.date} individual={true}/>
         );
     }
 
     if (show && edit) {
-        console.log('show and edit')
         return (
             editFunc(element)
         );
     } else if (show && !edit) {
-        console.log('show')
         return (
             <>
-                <div key={element.schoolName}>
+                <div key={element.id}>
                     {element.schoolName}{" "}
                     {element.major}{" "}
                     {element.date}
@@ -67,10 +63,9 @@ function EducationDisplay({array,setArray,element}) {
             </>
         );
     } else {
-        console.log('none')
         return (
             <>
-                <div key={element.schoolName}>
+                <div key={element.id}>
                     {element.schoolName}
                 </div>
                 <button onClick={()=>setShow(!show)}>Show</button>
@@ -79,29 +74,33 @@ function EducationDisplay({array,setArray,element}) {
     }
 }
 
-function EducationForm({array,setArray,schoolDefault='',majorDefault='',educationDefault=''}) {
+function EducationList({array,setArray}) {
+    const displays = array.map((education) => <EducationDisplay key={education.id} array={array} setArray={setArray} element={education}/>);
+    return displays;
+}
+
+function EducationForm({array,setArray,idDefault='',schoolDefault='',majorDefault='',educationDefault='',individual=false}) {
     const [school,setSchool] = useState(schoolDefault);
     const [major,setMajor] = useState(majorDefault);
     const [educationDate,setEducationDate] = useState(educationDefault);
     const [show,setShow] = useState(true);
 
-    const saveFunc = () => {
+    const saveNew = (idDefault=uuid()) => {
         // create new object
-        const education = {schoolName:school,major:major,date:educationDate};
         const newArray = array;
         if (newArray.length == 0) {
-            newArray.push(education);
+            newArray.push({id:idDefault,schoolName:school,major:major,date:educationDate});
         } else {
             let found = false;
             for (let i=0;i<newArray.length;i++) {
-                if (education.schoolName === newArray[i].schoolName) { // update that object in array
+                if (idDefault === newArray[i].id) { // update that object in array
                     found = true;
-                    newArray[i] = education;
+                    newArray[i] = {id:idDefault,schoolName:school,major:major,date:educationDate};
                     break;
                 }
             }
             if (!found) {
-                array.push(education);
+                array.push({id:idDefault,schoolName:school,major:major,date:educationDate});
             }
         }
         setArray(newArray);
@@ -111,27 +110,35 @@ function EducationForm({array,setArray,schoolDefault='',majorDefault='',educatio
         setShow(!show);
     }
 
-    return (
-        show 
-        ?
-        <div className="genInfo">
-            {array.map((education)=> {
-                return <EducationDisplay key={education.schoolName} element={education}/>
-            })}
-            <Field label="School Name:" val={school} setVal={setSchool}/>
-            <Field label="Field of Study:" val={major} setVal={setMajor}/>
-            <Field label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
-            <button onClick={saveFunc}>Save</button>
-            <button onClick={()=>setShow(!show)}>Add Education</button>
-        </div>
-        : 
-        <div className="genInfo">
-            {array.map((education)=> {
-                return <EducationDisplay key={education.schoolName} element={education}/>
-            })}
-            <button onClick={()=>setShow(!show)}>Add Education</button>
-        </div>
-    );
+    if (individual) {
+        return (
+            <div className="genInfo">
+                <Field label="School Name:" val={school} setVal={setSchool}/>
+                <Field label="Field of Study:" val={major} setVal={setMajor}/>
+                <Field label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
+                <button onClick={()=>saveNew(idDefault)}>Save</button>
+                <button onClick={()=>setShow(!show)}>Add Education</button>
+            </div>
+        );
+    } else if (show) {
+        return (
+            <div className="genInfo">
+                <EducationList array={array} setArray={setArray}/>
+                <Field label="School Name:" val={school} setVal={setSchool}/>
+                <Field label="Field of Study:" val={major} setVal={setMajor}/>
+                <Field label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
+                <button onClick={()=>saveNew()}>Save</button>
+                <button onClick={()=>setShow(!show)}>Add Education</button>
+            </div>
+        );
+    } else {
+        return (
+            <div className="genInfo">
+                <EducationList array={array} setArray={setArray}/>
+                <button onClick={()=>setShow(!show)}>Add Education</button>
+            </div>
+        );
+    }
     // when pressing save, checks if array is empty first, then compares school names to see if it already exists
 }
 

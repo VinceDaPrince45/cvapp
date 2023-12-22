@@ -1,5 +1,5 @@
 import { useState } from "react";
-import GenInfo from "./FormComponents/GenInfo";
+import GenInfo from "./DisplayComponents/GenInfo";
 import {GenInfoForm} from "./FormComponents/GenInfoForm";
 import { EducationForm } from "./FormComponents/EducationForm";
 import { ExpForm } from "./FormComponents/ExperienceForm";

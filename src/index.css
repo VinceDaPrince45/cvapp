@@ -1,5 +1,9 @@
-.genInfo {
+.genInfo,.newEducation,.editEducation {
     display:flex;
     flex-direction: column;
     margin-bottom:1em;
+}
+
+.educationbutton {
+    background-color: bisque;
 }

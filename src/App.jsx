@@ -1,6 +1,9 @@
 import { useState } from "react";
 import GenInfo from "./GenInfo";
-import {GenInfoForm,ExpForm,EducationForm} from "./Form";
+import {GenInfoForm} from "./GenInfoForm";
+import { EducationForm } from "./EducationForm";
+import { ExpForm } from "./ExperienceForm";
+
 
 export default function App() {
   const [name,setName] = useState('');

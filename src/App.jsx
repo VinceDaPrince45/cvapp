@@ -1,8 +1,8 @@
 import { useState } from "react";
-import GenInfo from "./GenInfo";
-import {GenInfoForm} from "./GenInfoForm";
-import { EducationForm } from "./EducationForm";
-import { ExpForm } from "./ExperienceForm";
+import GenInfo from "./FormComponents/GenInfo";
+import {GenInfoForm} from "./FormComponents/GenInfoForm";
+import { EducationForm } from "./FormComponents/EducationForm";
+import { ExpForm } from "./FormComponents/ExperienceForm";
 
 
 export default function App() {
@@ -19,7 +19,7 @@ export default function App() {
         <GenInfoForm formName="genInfo" val1name="Name:" val2name="Email:" val3name="Phone Number:" val1={name} val2={email} val3={phoneNum} setVal1={setName} setVal2={setEmail} setVal3={setPhoneNum}/>
         <EducationForm array={educationList} setArray={reloadEducation}/>
         <button onClick={()=>console.log(educationList)}>Test</button>
-        <ExpForm array={experienceList}/>
+        <ExpForm array={experienceList} setArray={reloadExperience}/>
         <button onClick={()=>setToggle(!toggle)}>Add Experience</button>
       </div>
       <div className="result">

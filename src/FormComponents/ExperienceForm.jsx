@@ -16,30 +16,26 @@ function NewField({label,val,setVal}) {
     );
 }
 
-function UpdateField({label,element,val,setVal,array,setArray}) {
-    const updateArray = () => {
-        const newArray = array;
+function UpdateField({label,element,copyVal,setCopyVal,array,setArray}) {
+    const updateArray = (event) => {
+        const newArray = [...array];
         for (let i=0;i<newArray.length;i++) {
             if (element.id == newArray[i].id) {
                 if (label == "Company Name:") {
-                    newArray[i].company = val;
+                    newArray[i].company = event.target.value;
                 } else if (label == "Position Title:") {
-                    newArray[i].position = val;
+                    newArray[i].position = event.target.value;
                 } else if (label == "Responsibilities:") {
-                    newArray[i].responsibilities = val;
+                    newArray[i].responsibilities = event.target.value;
                 } else if (label == "Date Started:") {
-                    newArray[i].start = val;
+                    newArray[i].start = event.target.value;
                 } else {
-                    newArray[i].end = val;
+                    newArray[i].end = event.target.value;
                 }
             }
         }
+        setCopyVal(event.target.value);
         setArray(newArray);
-    }
-
-    const update = (event) => {
-        setVal(event.target.value);
-        updateArray()
     }
 
     return (
@@ -47,14 +43,14 @@ function UpdateField({label,element,val,setVal,array,setArray}) {
         {label}{" "}
           <input 
             type="text"
-            value={val}
-            onChange={(event)=>update(event)}
+            value={copyVal}
+            onChange={(event)=>updateArray(event)}
           />
         </label>
     );
 }
 
-function ExperienceItem({array,setArray,element,setCompanyName,setPosition,setResponsibilities,setStartDate,setEndDate}) {
+function ExperienceItem({array,setArray,element}) {
     const [show,setShow] = useState(false);
     const [edit,setEdit] = useState(false);
     const [copyCompanyName,setCopyCompanyName] = useState(element.company);
@@ -64,7 +60,7 @@ function ExperienceItem({array,setArray,element,setCompanyName,setPosition,setRe
     const [copyEndDate,setCopyEndDate] = useState(element.end);
 
     const editFunc = () => {
-        const newArray = array;
+        const newArray = [...array];
         for (let i=0;i<newArray.length;i++) {
             if (element.id == newArray[i].id) {
                 newArray[i] = {id:element.id,company:copyCompanyName,position:copyPosition,responsibilities:copyResponsibilities,start:copyStartDate,end:copyEndDate};
@@ -75,11 +71,6 @@ function ExperienceItem({array,setArray,element,setCompanyName,setPosition,setRe
                 element.end = copyEndDate;
             }
         }
-        setCompanyName(copyCompanyName);
-        setPosition(copyPosition);
-        setResponsibilities(copyResponsibilities);
-        setStartDate(copyStartDate);
-        setEndDate(copyEndDate);
         setArray(newArray)
         setShow(!show);
         setEdit(!edit);
@@ -93,11 +84,11 @@ function ExperienceItem({array,setArray,element,setCompanyName,setPosition,setRe
     if (show && edit) {
         return (
             <div className="editExperience">
-                <UpdateField label="Company Name:" element={element} val={copyCompanyName} setVal={setCopyCompanyName} array={array} setArray={setArray}/>
-                <UpdateField label="Position Title:" element={element} val={copyPosition} setVal={setCopyPosition} array={array} setArray={setArray}/>
-                <UpdateField label="Responsibilities:" element={element} val={copyResponsibilities} setVal={setCopyResponsibilities} array={array} setArray={setArray}/>
-                <UpdateField label="Date Started:" element={element} val={copyStartDate} setVal={setCopyStartDate} array={array} setArray={setArray}/>
-                <UpdateField label="Date Ended:" element={element} val={copyEndDate} setVal={setCopyEndDate} array={array} setArray={setArray}/>
+                <UpdateField label="Company Name:" element={element} copyVal={copyCompanyName} setCopyVal={setCopyCompanyName} array={array} setArray={setArray}/>
+                <UpdateField label="Position Title:" element={element} copyVal={copyPosition} setCopyVal={setCopyPosition} array={array} setArray={setArray}/>
+                <UpdateField label="Responsibilities:" element={element} copyVal={copyResponsibilities} setCopyVal={setCopyResponsibilities} array={array} setArray={setArray}/>
+                <UpdateField label="Date Started:" element={element} copyVal={copyStartDate} setCopyVal={setCopyStartDate} array={array} setArray={setArray}/>
+                <UpdateField label="Date Ended:" element={element} copyVal={copyEndDate} setCopyVal={setCopyEndDate} array={array} setArray={setArray}/>
                 <button className="experiencebutton" onClick={editFunc}>Save</button>
                 <button className="experiencebutton" onClick={exit}>Hide</button>
             </div>
@@ -129,14 +120,23 @@ function EnteredExperiences({array,setArray,setCompanyName,setPosition,setRespon
     return experienceList;
 }
 
-function ExperienceForm({array,setArray,companyName,setCompanyName,position,setPosition,responsibilities,setResponsibilities,startDate,setStartDate,endDate,setEndDate}) {
+function ExperienceForm({array,setArray}) {
     const [show,setShow] = useState(true);
+    const [companyName,setCompanyName] = useState('');
+    const [position,setPosition] = useState('');
+    const [responsibilities,setResponsibilities] = useState('');
+    const [startDate,setStartDate] = useState('');
+    const [endDate,setEndDate] = useState('');
 
     const saveNew = (idDefault=uuid()) => {
         // create new object
-        const newArray = array;
+        const newArray = [...array];
         newArray.push({id:idDefault,company:companyName,position:position,responsibilities:responsibilities,start:startDate,end:endDate});
         setArray(newArray);
+        setShow(!show);
+    }
+
+    const reload = () => {
         setCompanyName('');
         setPosition('');
         setResponsibilities('');
@@ -156,12 +156,12 @@ function ExperienceForm({array,setArray,companyName,setCompanyName,position,setP
             <NewField label="Date Started" val={startDate} setVal={setStartDate}/>
             <NewField label="Date Ended" val={endDate} setVal={setEndDate}/>
             <button onClick={()=>saveNew()}>Save</button>
-            <button onClick={()=>setShow(!show)}>Add Experience</button>
+            <button onClick={reload}>Add Experience</button>
         </div>
         :
         <div className="newExperience">
             <EnteredExperiences array={array} setArray={setArray} companyName={companyName} setCompanyName={setCompanyName} position={position} setPosition={setPosition} responsibilities={responsibilities} setResponsibilities={setResponsibilities} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate}/>
-            <button onClick={()=>setShow(!show)}>Add Experience</button>
+            <button onClick={reload}>Add Experience</button>
         </div>
     );
 }

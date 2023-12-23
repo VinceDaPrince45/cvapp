@@ -3,6 +3,7 @@ import { useState } from "react";
 import { v4 as uuid } from "uuid";
 
 function NewField({label,val,setVal}) {
+    // maybe use copy variables to avoid linkage with updatefield
     return (
         <label>
         {label}{" "}
@@ -15,26 +16,22 @@ function NewField({label,val,setVal}) {
     );
 }
 
-function UpdateField({label,element,val,setVal,array,setArray}) {
-    const updateArray = () => {
-        const newArray = array;
+function UpdateField({label,element,copyVal,setCopyVal,array,setArray}) {
+    const updateArray = (event) => {
+        const newArray = [...array];
         for (let i=0;i<newArray.length;i++) {
             if (element.id == newArray[i].id) {
                 if (label == "School Name:") {
-                    newArray[i].schoolName = val;
+                    newArray[i].schoolName = event.target.value;
                 } else if (label == "Field of Study:") {
-                    newArray[i].major = val;
+                    newArray[i].major = event.target.value;
                 } else {
-                    newArray[i].date = val;
+                    newArray[i].date = event.target.value;
                 }
             }
         }
+        setCopyVal(event.target.value);
         setArray(newArray);
-    }
-
-    const update = (event) => {
-        setVal(event.target.value);
-        updateArray()
     }
 
     return (
@@ -42,14 +39,14 @@ function UpdateField({label,element,val,setVal,array,setArray}) {
         {label}{" "}
           <input 
             type="text"
-            value={val}
-            onChange={(event)=>update(event)}
+            value={copyVal}
+            onChange={(event)=>updateArray(event)}
           />
         </label>
     );
 }
 
-function EducationItem({array,setArray,element,setSchool,setMajor,setEducationDate}) {
+function EducationItem({array,setArray,element}) {
     const [show,setShow] = useState(false);
     const [edit,setEdit] = useState(false);
     const [copySchool,setCopySchool] = useState(element.schoolName);
@@ -57,7 +54,7 @@ function EducationItem({array,setArray,element,setSchool,setMajor,setEducationDa
     const [copyEducationDate,setCopyEducationDate] = useState(element.date);
 
     const editFunc = () => {
-        const newArray = array;
+        const newArray = [...array];
         for (let i=0;i<newArray.length;i++) {
             if (element.id == newArray[i].id) {
                 newArray[i] = {id:element.id,schoolName:copySchool,major:copyMajor,date:copyEducationDate};
@@ -66,10 +63,7 @@ function EducationItem({array,setArray,element,setSchool,setMajor,setEducationDa
                 element.date = copyEducationDate;
             }
         }
-        setSchool(copySchool);
-        setMajor(copyMajor);
-        setEducationDate(copyEducationDate);
-        setArray(newArray)
+        setArray(newArray);
         setShow(!show);
         setEdit(!edit);
     }
@@ -82,9 +76,9 @@ function EducationItem({array,setArray,element,setSchool,setMajor,setEducationDa
     if (show && edit) {
         return (
             <div className="editEducation">
-                <UpdateField label="School Name:" element={element} val={copySchool} setVal={setCopySchool} array={array} setArray={setArray}/>
-                <UpdateField label="Field of Study:" element={element} val={copyMajor} setVal={setCopyMajor} array={array} setArray={setArray}/>
-                <UpdateField label="Date of Study:" element={element} val={copyEducationDate} setVal={setCopyEducationDate} array={array} setArray={setArray}/>
+                <UpdateField label="School Name:" element={element} copyVal={copySchool} setCopyVal={setCopySchool} array={array} setArray={setArray}/>
+                <UpdateField label="Field of Study:" element={element} copyVal={copyMajor} setCopyVal={setCopyMajor} array={array} setArray={setArray}/>
+                <UpdateField label="Date of Study:" element={element} copyVal={copyEducationDate} setCopyVal={setCopyEducationDate} array={array} setArray={setArray}/>
                 <button className="educationbutton" onClick={editFunc}>Save</button>
                 <button className="educationbutton" onClick={exit}>Hide</button>
             </div>
@@ -114,14 +108,21 @@ function EnteredEducations({array,updateArray,setSchool,setMajor,setEducationDat
     return educationList;
 }
 
-function EducationForm({array,setArray,school,setSchool,major,setMajor,educationDate,setEducationDate}) {
+function EducationForm({array,setArray}) {
     const [show,setShow] = useState(true);
+    const [school,setSchool] = useState('');
+    const [major,setMajor] = useState('');
+    const [educationDate,setEducationDate] = useState('');
 
     const saveNew = (idDefault=uuid()) => {
         // create new object
-        const newArray = array;
+        const newArray = [...array];
         newArray.push({id:idDefault,schoolName:school,major:major,date:educationDate});
         setArray(newArray);
+        setShow(!show);
+    }
+
+    const reload = () => {
         setSchool('');
         setMajor('');
         setEducationDate('');
@@ -132,17 +133,17 @@ function EducationForm({array,setArray,school,setSchool,major,setMajor,education
         show
         ?
         <div className="newEducation">
-            <EnteredEducations array={array} updateArray={setArray} school={school} setSchool={setSchool} major={major} setMajor={setMajor} educationDate={educationDate} setEducationDate={setEducationDate}/>
+            <EnteredEducations array={array} updateArray={setArray} setSchool={setSchool} major={major} setMajor={setMajor} educationDate={educationDate} setEducationDate={setEducationDate}/>
             <NewField label="School Name:" val={school} setVal={setSchool}/>
             <NewField label="Field of Study:" val={major} setVal={setMajor}/>
             <NewField label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
             <button onClick={()=>saveNew()}>Save</button>
-            <button onClick={()=>setShow(!show)}>Add Education</button>
+            <button onClick={reload}>Add Education</button>
         </div>
         :
         <div className="newEducation">
-            <EnteredEducations array={array} updateArray={setArray} school={school} setSchool={setSchool} major={major} setMajor={setMajor} educationDate={educationDate} setEducationDate={setEducationDate}/>
-            <button onClick={()=>setShow(!show)}>Add Education</button>
+            <EnteredEducations array={array} updateArray={setArray} setSchool={setSchool} major={major} setMajor={setMajor} educationDate={educationDate} setEducationDate={setEducationDate}/>
+            <button onClick={reload}>Add Education</button>
         </div>
     );
     // when pressing save, checks if array is empty first, then compares school names to see if it already exists

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 function EducationList({array}) {
+    console.log("render")
     const educationList = array.map((education) => 
     <div key={education.id} className="educationItem">
         <div>{education.schoolName}</div>

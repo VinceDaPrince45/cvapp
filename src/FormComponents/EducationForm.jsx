@@ -133,9 +133,9 @@ function EducationForm({array,setArray,school,setSchool,major,setMajor,education
         ?
         <div className="newEducation">
             <EnteredEducations array={array} updateArray={setArray} school={school} setSchool={setSchool} major={major} setMajor={setMajor} educationDate={educationDate} setEducationDate={setEducationDate}/>
-            <NewField label="School Name:" val={school} setVal={setSchool} array={array} setArray={setArray}/>
-            <NewField label="Field of Study:" val={major} setVal={setMajor} array={array} setArray={setArray}/>
-            <NewField label="Date of Study:" val={educationDate} setVal={setEducationDate} array={array} setArray={setArray}/>
+            <NewField label="School Name:" val={school} setVal={setSchool}/>
+            <NewField label="Field of Study:" val={major} setVal={setMajor}/>
+            <NewField label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
             <button onClick={()=>saveNew()}>Save</button>
             <button onClick={()=>setShow(!show)}>Add Education</button>
         </div>

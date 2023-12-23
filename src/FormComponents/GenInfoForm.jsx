@@ -14,7 +14,6 @@ function Field({label,val,setVal}) {
 }
 
 function GenInfoForm({
-  formName,
   val1name,
   val2name,
   val3name,
@@ -26,7 +25,7 @@ function GenInfoForm({
   setVal3
   }) {
   return (
-      <div className={formName}>
+      <div className="genInfo">
           <Field label={val1name} val={val1} setVal={setVal1}/>
           <Field label={val2name} val={val2} setVal={setVal2}/>
           <Field label={val3name} val={val3} setVal={setVal3}/>

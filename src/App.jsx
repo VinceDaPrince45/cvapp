@@ -15,18 +15,18 @@ export default function App() {
   // need to move useState from child components to here to load
 
   return (
-    <div>
+    <div className="page">
       <div className="input">
-        <GenInfoForm formName="genInfo" val1name="Name:" val2name="Email:" val3name="Phone Number:" val1={name} val2={email} val3={phoneNum} setVal1={setName} setVal2={setEmail} setVal3={setPhoneNum}/>
+        <GenInfoForm val1name="Name:" val2name="Email:" val3name="Phone Number:" val1={name} val2={email} val3={phoneNum} setVal1={setName} setVal2={setEmail} setVal3={setPhoneNum}/>
         <EducationForm array={educationList} setArray={reloadEducation}/>
-        <button onClick={()=>console.log(educationList)}>Test</button>
         <ExpForm array={experienceList} setArray={reloadExperience}/>
-        <button onClick={()=>console.log(experienceList)}>Test</button>
       </div>
       <div className="display">
-        <GenInfo nameVal={name} emailVal={email} phoneVal={phoneNum}/>
-        <EducationDisplay array={educationList}/>
-        <ExperienceDisplay array={experienceList}/>
+        <div className="resume">
+          <GenInfo nameVal={name} emailVal={email} phoneVal={phoneNum}/>
+          <EducationDisplay array={educationList}/>
+          <ExperienceDisplay array={experienceList}/>
+        </div>
       </div>
     </div>
   );

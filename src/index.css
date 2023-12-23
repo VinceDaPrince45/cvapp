@@ -1,9 +1,28 @@
-.genInfo,.newEducation,.editEducation,.newExperience,.editExperience {
+.page {
     display:flex;
-    flex-direction: column;
-    margin-bottom:1em;
+    flex-direction: row;
+    height:100vh;
 }
 
-.educationbutton,.experiencebutton {
-    background-color: bisque;
+.input,.display,.genInfo,.newEducation,.editEducation,.newExperience,.editExperience {
+    display:flex;
+    flex-direction: column;
+}
+
+.input {
+    justify-content: space-evenly;
+}
+
+.display {
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content: center;
+}
+
+.resume {
+    width:70%;
+    height:80%;
+    align-self: center;
+    text-align: center;
 }

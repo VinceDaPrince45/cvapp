@@ -4,6 +4,7 @@ import { GenInfoForm } from "./FormComponents/GenInfoForm";
 import { EducationForm } from "./FormComponents/EducationForm";
 import { ExpForm } from "./FormComponents/ExperienceForm";
 import EducationDisplay from "./DisplayComponents/Education";
+import ExperienceDisplay from "./DisplayComponents/Experience";
 
 export default function App() {
   const [name,setName] = useState('');
@@ -25,6 +26,7 @@ export default function App() {
       <div className="display">
         <GenInfo nameVal={name} emailVal={email} phoneVal={phoneNum}/>
         <EducationDisplay array={educationList}/>
+        <ExperienceDisplay array={experienceList}/>
       </div>
     </div>
   );

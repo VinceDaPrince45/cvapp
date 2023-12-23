@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 function Name({val}) {
     return (
         <div>{val}</div>
@@ -18,7 +20,7 @@ function PhoneNum({val}) {
 
 export default function GenInfo({nameVal,emailVal,phoneVal}) {
     return (
-        <div>
+        <div className="genInfoDisplay">
             <Name val={nameVal} />
             <Email val={emailVal} />
             <PhoneNum val={phoneVal} />

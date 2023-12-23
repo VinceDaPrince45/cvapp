@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import { useState } from "react";
 import { Field } from "./GenInfoForm";
 import { v4 as uuid } from "uuid";

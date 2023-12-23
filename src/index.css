@@ -1,6 +1,8 @@
 .page {
     display:flex;
     flex-direction: row;
+    justify-content: center;
+    gap:10%;
     height:100vh;
 }
 
@@ -14,15 +16,22 @@
 }
 
 .display {
-    width:100%;
-    height:100%;
+    aspect-ratio: 8.5/11;
     display:flex;
     justify-content: center;
+    padding-top:1em;
+    padding-bottom:1em;
 }
 
 .resume {
-    width:70%;
-    height:80%;
-    align-self: center;
-    text-align: center;
+    border: 2px solid black;
+    aspect-ratio: 8.5/11;
+}
+
+.add {
+    margin-top:1em;
+}
+
+div,textarea {
+    white-space: pre;
 }

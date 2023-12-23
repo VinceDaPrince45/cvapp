@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 
 function ExperienceList({array}) {
-    console.log("render")
     const experienceList = array.map((experience) => 
     <div key={experience.id} className="experienceItem">
         <div>{experience.company}</div>
@@ -11,7 +10,7 @@ function ExperienceList({array}) {
         <div>{experience.end}</div>
     </div>
     );
-    return experienceList
+    return experienceList;
 }
 
 export default function ExperienceDisplay({array}) {

@@ -138,12 +138,12 @@ function EducationForm({array,setArray}) {
             <NewField label="Field of Study:" val={major} setVal={setMajor}/>
             <NewField label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
             <button onClick={()=>saveNew()}>Save</button>
-            <button onClick={reload}>Add Education</button>
+            <button className="add" onClick={reload}>Cancel</button>
         </div>
         :
         <div className="newEducation">
             <EnteredEducations array={array} updateArray={setArray} setSchool={setSchool} major={major} setMajor={setMajor} educationDate={educationDate} setEducationDate={setEducationDate}/>
-            <button onClick={reload}>Add Education</button>
+            <button className="add" onClick={reload}>Add Education</button>
         </div>
     );
     // when pressing save, checks if array is empty first, then compares school names to see if it already exists

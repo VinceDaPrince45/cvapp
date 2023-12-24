@@ -19,9 +19,7 @@ export default function App() {
       <div className="input">
         <GenInfoForm val1name="Name:" val2name="Email:" val3name="Phone Number:" val1={name} val2={email} val3={phoneNum} setVal1={setName} setVal2={setEmail} setVal3={setPhoneNum}/>
         <EducationForm array={educationList} setArray={reloadEducation}/>
-        <button onClick={()=>console.log(educationList)}>test</button>
         <ExpForm array={experienceList} setArray={reloadExperience}/>
-        <button onClick={()=>console.log(experienceList)}>test</button>
       </div>
       <div className="display">
         <div className="resume">

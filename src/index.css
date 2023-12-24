@@ -1,3 +1,7 @@
+* {
+    font-family: 'Times New Roman', Times, serif;
+}
+
 .page {
     display:flex;
     flex-direction: row;
@@ -6,7 +10,7 @@
     height:100vh;
 }
 
-.input,.display,.genInfo,.newEducation,.editEducation,.newExperience,.editExperience {
+.input,.display,.genInfo,.editEducation,.newExperience,.editExperience,.add {
     display:flex;
     flex-direction: column;
 }
@@ -26,6 +30,7 @@
 .resume {
     border: 2px solid black;
     aspect-ratio: 8.5/11;
+    padding:2em;
 }
 
 .add {
@@ -34,4 +39,40 @@
 
 div,textarea {
     white-space: pre;
+}
+
+.genInfoDisplay {
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.emailnumber {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.header {
+    border-bottom:1px solid grey;
+}
+
+.educationItem {
+    display:flex;
+    flex-direction: column;
+}
+
+.top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.date {
+    display:flex;
+    flex-direction: row;
+}
+
+.educationItem,.experienceItem {
+    margin-top:0.5em;
 }

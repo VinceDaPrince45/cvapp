@@ -21,9 +21,13 @@ function PhoneNum({val}) {
 export default function GenInfo({nameVal,emailVal,phoneVal}) {
     return (
         <div className="genInfoDisplay">
-            <Name val={nameVal} />
-            <Email val={emailVal} />
-            <PhoneNum val={phoneVal} />
+            <div className="name">
+                <Name val={nameVal} />
+            </div>
+            <div className="emailnumber">
+                <Email val={emailVal}/>{"  |  "}
+                <PhoneNum val={phoneVal}/>
+            </div>
         </div>
     );
 }

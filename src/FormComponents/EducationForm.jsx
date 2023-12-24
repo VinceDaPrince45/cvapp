@@ -109,7 +109,7 @@ function EnteredEducations({array,updateArray,setSchool,setMajor,setEducationDat
 }
 
 function EducationForm({array,setArray}) {
-    const [show,setShow] = useState(true);
+    const [show,setShow] = useState(false);
     const [school,setSchool] = useState('');
     const [major,setMajor] = useState('');
     const [educationDate,setEducationDate] = useState('');
@@ -134,16 +134,20 @@ function EducationForm({array,setArray}) {
         ?
         <div className="newEducation">
             <EnteredEducations array={array} updateArray={setArray} setSchool={setSchool} major={major} setMajor={setMajor} educationDate={educationDate} setEducationDate={setEducationDate}/>
-            <NewField label="School Name:" val={school} setVal={setSchool}/>
-            <NewField label="Field of Study:" val={major} setVal={setMajor}/>
-            <NewField label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
-            <button onClick={()=>saveNew()}>Save</button>
-            <button className="add" onClick={reload}>Cancel</button>
+            <div className="add">
+                <NewField label="School Name:" val={school} setVal={setSchool}/>
+                <NewField label="Field of Study:" val={major} setVal={setMajor}/>
+                <NewField label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
+                <button onClick={()=>saveNew()}>Save</button>
+                <button onClick={reload}>Cancel</button>
+            </div>
         </div>
         :
         <div className="newEducation">
             <EnteredEducations array={array} updateArray={setArray} setSchool={setSchool} major={major} setMajor={setMajor} educationDate={educationDate} setEducationDate={setEducationDate}/>
-            <button className="add" onClick={reload}>Add Education</button>
+            <div className="add">
+                <button onClick={reload}>Add Education</button>
+            </div>
         </div>
     );
     // when pressing save, checks if array is empty first, then compares school names to see if it already exists

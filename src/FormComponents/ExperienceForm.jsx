@@ -149,7 +149,7 @@ function EnteredExperiences({array,setArray,setCompanyName,setPosition,setRespon
 }
 
 function ExperienceForm({array,setArray}) {
-    const [show,setShow] = useState(true);
+    const [show,setShow] = useState(false);
     const [companyName,setCompanyName] = useState('');
     const [position,setPosition] = useState('');
     const [responsibilities,setResponsibilities] = useState('');
@@ -178,18 +178,22 @@ function ExperienceForm({array,setArray}) {
         ?
         <div className="newExperience">
             <EnteredExperiences array={array} setArray={setArray} companyName={companyName} setCompanyName={setCompanyName} position={position} setPosition={setPosition} responsibilities={responsibilities} setResponsibilities={setResponsibilities} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate}/>
-            <NewField label="Company Name:" val={companyName} setVal={setCompanyName}/>
-            <NewField label="Position Title:" val={position} setVal={setPosition}/>
-            <TextArea label="Responsibilities:" val={responsibilities} setVal={setResponsibilities}/>
-            <NewField label="Date Started" val={startDate} setVal={setStartDate}/>
-            <NewField label="Date Ended" val={endDate} setVal={setEndDate}/>
-            <button className="add" onClick={()=>saveNew()}>Save</button>
-            <button onClick={reload}>Cancel</button>
+            <div className="add">
+                <NewField label="Company Name:" val={companyName} setVal={setCompanyName}/>
+                <NewField label="Position Title:" val={position} setVal={setPosition}/>
+                <TextArea label="Responsibilities:" val={responsibilities} setVal={setResponsibilities}/>
+                <NewField label="Date Started" val={startDate} setVal={setStartDate}/>
+                <NewField label="Date Ended" val={endDate} setVal={setEndDate}/>
+                <button onClick={()=>saveNew()}>Save</button>
+                <button onClick={reload}>Cancel</button>
+            </div>
         </div>
         :
         <div className="newExperience">
             <EnteredExperiences array={array} setArray={setArray} companyName={companyName} setCompanyName={setCompanyName} position={position} setPosition={setPosition} responsibilities={responsibilities} setResponsibilities={setResponsibilities} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate}/>
-            <button className="add" onClick={reload}>Add Experience</button>
+            <div className="add">
+                <button onClick={reload}>Add Experience</button>
+            </div>
         </div>
     );
 }

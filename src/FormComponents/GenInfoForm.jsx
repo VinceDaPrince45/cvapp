@@ -3,7 +3,7 @@
 function Field({label,val,setVal}) {
   return (
       <label>
-      {label}{" "}
+      {label}{"\n"}
         <input 
           type="text"
           value={val}

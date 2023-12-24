@@ -6,7 +6,7 @@ function NewField({label,val,setVal}) {
     // maybe use copy variables to avoid linkage with updatefield
     return (
         <label>
-        {label}{" "}
+        {label}{"\n"}
           <input 
             type="text"
             value={val}
@@ -36,7 +36,7 @@ function UpdateField({label,element,copyVal,setCopyVal,array,setArray}) {
 
     return (
         <label>
-        {label}{" "}
+        {label}{"\n"}
           <input 
             type="text"
             value={copyVal}
@@ -79,8 +79,10 @@ function EducationItem({array,setArray,element}) {
                 <UpdateField label="School Name:" element={element} copyVal={copySchool} setCopyVal={setCopySchool} array={array} setArray={setArray}/>
                 <UpdateField label="Field of Study:" element={element} copyVal={copyMajor} setCopyVal={setCopyMajor} array={array} setArray={setArray}/>
                 <UpdateField label="Date of Study:" element={element} copyVal={copyEducationDate} setCopyVal={setCopyEducationDate} array={array} setArray={setArray}/>
-                <button className="educationbutton" onClick={editFunc}>Save</button>
-                <button className="educationbutton" onClick={exit}>Hide</button>
+                <div className="button">
+                    <button className="educationbutton" onClick={editFunc}>Save</button>
+                    <button className="educationbutton" onClick={exit}>Hide</button>
+                </div>
             </div>
         );
     } else if (show && !edit) {
@@ -89,15 +91,19 @@ function EducationItem({array,setArray,element}) {
                 {element.schoolName}{" "}
                 {element.major}{" "}
                 {element.date}
-                <button className="educationbutton" onClick={()=>setEdit(!edit)}>Edit</button>
-                <button className="educationbutton" onClick={()=>setShow(!show)}>Hide</button>
+                <div className="button">
+                    <button className="educationbutton" onClick={()=>setEdit(!edit)}>Edit</button>
+                    <button className="educationbutton" onClick={()=>setShow(!show)}>Hide</button>
+                </div>
             </div>
         );
     } else {
         return (
             <div className="editEducation">
                 {element.schoolName}
-                <button className="educationbutton" onClick={()=>setShow(!show)}>Show</button>
+                <div className="button">
+                    <button className="educationbutton" onClick={()=>setShow(!show)}>Show</button>
+                </div>
             </div>        
         );
     }
@@ -138,15 +144,19 @@ function EducationForm({array,setArray}) {
                 <NewField label="School Name:" val={school} setVal={setSchool}/>
                 <NewField label="Field of Study:" val={major} setVal={setMajor}/>
                 <NewField label="Date of Study:" val={educationDate} setVal={setEducationDate}/>
-                <button onClick={()=>saveNew()}>Save</button>
-                <button onClick={reload}>Cancel</button>
+                <div className="button">
+                    <button onClick={()=>saveNew()}>Save</button>
+                    <button onClick={reload}>Cancel</button>
+                </div>
             </div>
         </div>
         :
         <div className="newEducation">
             <EnteredEducations array={array} updateArray={setArray} setSchool={setSchool} major={major} setMajor={setMajor} educationDate={educationDate} setEducationDate={setEducationDate}/>
             <div className="add">
-                <button onClick={reload}>Add Education</button>
+                <div className="button">
+                    <button onClick={reload}>Add Education</button>
+                </div>
             </div>
         </div>
     );

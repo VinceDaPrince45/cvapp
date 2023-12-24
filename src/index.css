@@ -1,5 +1,6 @@
 * {
     font-family: 'Times New Roman', Times, serif;
+    font-size:1.8vh;
 }
 
 .page {
@@ -7,7 +8,7 @@
     flex-direction: row;
     justify-content: center;
     gap:10%;
-    height:100vh;
+    height:100%;
 }
 
 .input,.display,.genInfo,.editEducation,.newExperience,.editExperience,.add {
@@ -25,6 +26,7 @@
     justify-content: center;
     padding-top:1em;
     padding-bottom:1em;
+    height:90vh;
 }
 
 .resume {
@@ -75,4 +77,106 @@ div,textarea {
 
 .educationItem,.experienceItem {
     margin-top:0.5em;
+}
+
+textarea {
+    width: 100%;
+    height: 4em;
+    padding: 0.2em 0.5em;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+input[type=text] {
+    padding: 0.2em 0.5em;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+.button {
+    display:flex;
+    flex-direction:column;
+    margin-top:1em;
+}
+
+button {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12px;
+  box-sizing: border-box;
+  color: #121212;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 auto;
+  justify-content: center;
+  line-height: 1;
+  margin:0.1em;
+  outline: none;
+  padding: 0.2em;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s,-webkit-box-shadow .2s;
+  border: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  border:2px solid black;
+}
+
+button:hover {
+  box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
+}
+
+@media (max-width:1000px) {
+    html {
+        font-size:2vh;
+    }
+
+    button {
+        font-size:2vh;
+        padding-top:1em;
+        padding-bottom:1em;
+    }
+
+    .button {
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        width:50%;
+        align-self: center;
+    }
+
+    .add {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .page {
+        padding-top:5em;
+        padding-bottom:5em;
+        height:100%;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        gap:0;
+    }
+
+    .input {
+        width:100%;
+        text-align: center;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        gap:2em;
+    }
+
+    textarea {
+        width:70%;
+    }
 }

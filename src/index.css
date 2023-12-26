@@ -135,6 +135,7 @@ button:hover {
 @media (max-width:1000px) {
     html {
         font-size:2vh;
+        width:100vw;
     }
 
     button {
